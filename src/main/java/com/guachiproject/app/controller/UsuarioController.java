@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.guachiproject.app.entity.Usuario;
-import com.guachiproject.app.service.S3Service;
 import com.guachiproject.app.service.UsuarioService;
 
 @RestController
