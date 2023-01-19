@@ -6,14 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name = "usuario")
-@Getter
-@Setter
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +24,16 @@ public class Usuario {
 	private String email;
 	@Column(name = "estado")
 	private boolean estado;
+	
+	//Imagenes
+	
+	@Column(name = "foto")
+	private String fotopath;
+	@Column(name = "cedula")
+	private String cedulapath;
+	
+	@Transient
+	private String fotoUrl;
+	@Transient
+	private String cedulaUrl;
 }
