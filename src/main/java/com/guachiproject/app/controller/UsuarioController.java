@@ -24,7 +24,8 @@ import com.guachiproject.app.service.UsuarioService;
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
-
+	
+	
 	// Crear
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody Usuario usuario) {

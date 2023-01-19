@@ -1,6 +1,7 @@
 package com.guachiproject.app.service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,11 +17,15 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Autowired
 	public UsuarioRepositorio usuarioRepositorio;
-	
+	@Autowired
+	public S3Service s3Service;
 	@Override
 	@Transactional(readOnly = true)
 	public Iterable<Usuario> findAll() {
-		return usuarioRepositorio.findAll();
+		return usuarioRepositorio.findAll()
+				.stream()
+				.peek(curso -> curso.setCedulaUrl(s3Service.getObjextUrl(curso.getCedulapath())))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -40,7 +45,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Transactional
 	public Usuario save(Usuario user) {
 		// TODO Auto-generated method stub
-		return usuarioRepositorio.save(user);
+		usuarioRepositorio.save(user);
+		user.setCedulaUrl(s3Service.getObjextUrl(user.getCedulapath()));
+		user.setFotoUrl(s3Service.getObjextUrl(user.getFotopath()));
+		return user;
 	}
 
 	@Override
